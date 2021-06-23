@@ -88,6 +88,23 @@ const initState = {
           placedOrderId: action.payload.order._id,
         };
         break;
+        case userContants.EDIT_USER_PROFILE_REQUEST:
+      state = {
+        ...state,
+      };
+      break;
+    case userContants.EDIT_USER_PROFILE_SUCCESS:
+      state = {
+        ...state,
+        store: action.payload.updateduserProfile,
+      };
+      break;
+    case userContants.EDIT_USER_PROFILE_FAILURE:
+      state = {
+        ...state,
+        error: action.payload.error,
+      };
+      break;
     }
   
     return state;

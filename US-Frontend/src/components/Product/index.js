@@ -12,7 +12,8 @@ const Product = (props) => {
     const handleShow = (product) => { setShow(true);setProductDetails(product)}
     return (
       <>
-        <div key={product._id}>
+        <div key={product._id} style={{ border:' 1px solid #d4d4d4',
+        borderRadius: '5px'}}>
         <div onClick={()=>handleShow(product)}
           key={product._id}
         >
