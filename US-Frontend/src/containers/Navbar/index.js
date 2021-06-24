@@ -76,7 +76,12 @@ const Navigationbar = (props) => {
             <a href="/myprofile">
               <img
                 src={Profilepiclogo}
-                style={{ height: 22, width: 22, marginBottom:'3px', marginRight:"4px" }}
+                style={{
+                  height: 22,
+                  width: 22,
+                  marginBottom: "3px",
+                  marginRight: "4px",
+                }}
                 alt="Shopisthan Logo"
               />
               <span style={{ fontSize: 15 }}> {auth.user.firstName}</span>
@@ -166,71 +171,53 @@ const Navigationbar = (props) => {
     <>
       <nav className="navbar">
         <Modal visible={loginModal} onClose={() => setLoginModal(false)}>
-          <div className="authContainer">
-            <div className="row">
-              <div className="leftspace">
-                <img
-                  style={{ width: 70, height: 70 }}
-                  src={Shopisthan__logo_bolte}
-                  alt="Shopisthan Logo"
-                />
-                <h2 style={{ marginTop: 10 }}>Login</h2>
-                <p style={{ fontSize: 15, marginTop: 10 }}>
-                  An effort to give everyone a Commerce Store – even if you are
-                  selling from home or from multiple locations.
+          <div className="CardLayout-Toaster-Container">
+            <section className="CardLayout">
+              <header className="CardLayout__header">
+                <h1 className="spectrum-Heading1">Sign In</h1>
+                <p className="EmailPage__instructions">
+                  New User ?
+                  <a className="spectrum-Link EmailPage__create-account-link">
+                    Creat an Account
+                  </a>
                 </p>
-              </div>
-              <div className="rightspace">
-                <div
-                  className="loginInputContainer"
-                  style={{ width: 250, marginTop: 20 }}
-                >
-                  {auth.error && (
-                    <div style={{ color: "red", fontSize: 12 }}>
-                      {auth.error}
+              </header>
+              <section className="CardLayout__content">
+                <form>
+                  <section className="EmailPage__email-field form-group">
+                    <div>
+                      <label className="spectrum-FieldLabel">
+                        Email Address
+                      </label>
+                      <input
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="spectrum-Textfield spectrum-Textfield--quiet"
+                      ></input>
                     </div>
-                  )}
-                  {signup && (
-                    <MaterialInput
-                      type="text"
-                      label="First Name"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                  )}
-                  {signup && (
-                    <MaterialInput
-                      type="text"
-                      label="Last Name"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                  )}
-
-                  <MaterialInput
-                    type="text"
-                    label="Email/Mobile Number"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <MaterialInput
-                    type="password"
-                    label="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <MaterialButton
-                    title={signup ? "Register" : "Login"}
-                    bgColor="#fb641b"
-                    textColor="#ffffff"
-                    style={{
-                      margin: "40px 0 20px 0",
-                    }}
-                    onClick={login}
-                  />
-                </div>
-              </div>
-            </div>
+                    <div>
+                      <label className="spectrum-FieldLabel">Password</label>
+                      <input
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="spectrum-Textfield spectrum-Textfield--quiet"
+                      ></input>
+                    </div>
+                  </section>
+                  <section className="EmailPage__submit mod-submit">
+                    <div className="ta-left"></div>
+                    <div className="ta-right">
+                      <button
+                        onClick={login}
+                        className="spectrum-Button spectrum-Button--cta SpinnerButton SpinnerButton--right"
+                      >
+                        <span className="spectrum-Button-label">Submit</span>
+                      </button>
+                    </div>
+                  </section>
+                </form>
+              </section>
+            </section>
           </div>
         </Modal>
         <h3 className="logo">
@@ -247,9 +234,7 @@ const Navigationbar = (props) => {
           onClick={() => setIsMobile(false)}
         >
           <Link className="cart" to="/">
-            <a
-              className="PrimaryNav-coreNavigationLink-2uv e2e-Nav-jobs"
-            >
+            <a className="PrimaryNav-coreNavigationLink-2uv e2e-Nav-jobs">
               <h3 className="PrimaryNav-coreNavigationLabel-3rj">
                 <div class="link-background">
                   <img src={Homeicon} className="homepagenavbar-icon" />
@@ -264,7 +249,7 @@ const Navigationbar = (props) => {
             <a className="PrimaryNav-coreNavigationLink-2uv e2e-Nav-jobs">
               <h3 className="PrimaryNav-coreNavigationLabel-3rj">
                 <div class="link-background">
-                <img src={Storeicon} className="homepagenavbar-icon" />
+                  <img src={Storeicon} className="homepagenavbar-icon" />
                   <a href="" class="middle">
                     Store
                   </a>
@@ -273,9 +258,7 @@ const Navigationbar = (props) => {
             </a>
           </Link>
           <Link className="cart" to="/">
-            <a
-              className="PrimaryNav-coreNavigationLink-2uv e2e-Nav-jobs"
-            >
+            <a className="PrimaryNav-coreNavigationLink-2uv e2e-Nav-jobs">
               <h3 className="PrimaryNav-coreNavigationLabel-3rj">
                 <div class="link-background">
                   <img src={Wishlisticon} className="homepagenavbar-icon" />
@@ -287,9 +270,7 @@ const Navigationbar = (props) => {
             </a>
           </Link>
           <Link className="cart" to="/cart">
-            <a
-              className="PrimaryNav-coreNavigationLink-2uv e2e-Nav-jobs"
-            >
+            <a className="PrimaryNav-coreNavigationLink-2uv e2e-Nav-jobs">
               <h3 className="PrimaryNav-coreNavigationLabel-3rj">
                 <div class="link-background">
                   <img src={Carticon} className="homepagenavbar-icon" />
@@ -316,10 +297,7 @@ const Navigationbar = (props) => {
             <li className="fas fa-bars"></li>
           )}
         </button>
-        
-
       </nav>
-
     </>
   );
 };
