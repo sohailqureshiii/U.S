@@ -18,16 +18,18 @@ const ExploreStore = (props) => {
   const [filterdLocation,setFilterdLocation] = useState("");
   const [filterdCategory,setFilterdCategory] = useState("");
  
+ 
 
   const renderStores = () =>{
 
+    //All Store
     if(searchTerm === "" && filterdCategory === "" && filterdLocation === ""){
       return(
         <div style={{ padding: "30px", paddingTop: "30px" }}>
        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
        {
          store.stores.map((store,index)=>(
-           <Store store={store} />
+           <Store store={store} index={index} />
          ))
        }
   
@@ -36,7 +38,77 @@ const ExploreStore = (props) => {
       );
     }
 
-    
+    //Search Store
+    if(searchTerm !=="" ){
+      return (
+        <div style={{ padding: "30px",paddingTop: "30px" }}>
+        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+      { 
+         store.stores.filter((store)=>
+         store.shopName
+                  .toLowerCase()
+                  .split(" ")
+                  .join("")
+                  .includes(searchTerm.toLowerCase().split(" ").join("")) 
+         ).map((store,index)=>(
+         <Store store={store} index={index} />  
+        ))
+      }
+        </div>
+        </div>
+      )
+    }
+
+    //Category Store
+    if(filterdCategory !=="" && filterdLocation === "" ){
+      return (
+        <div style={{ padding: "30px",paddingTop: "30px" }}>
+        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+      { 
+         store.stores.filter((store)=>
+         store.shopCategory._id.includes(filterdCategory)
+         ).map((store,index)=>(
+         <Store store={store}  index={index}/>  
+        ))
+      }
+        </div>
+        </div>
+      )
+    }
+
+    //Location Store
+    if(filterdLocation !=="" && filterdCategory === "" ){
+      return (
+        <div style={{ padding: "30px",paddingTop: "30px" }}>
+        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+      { 
+         store.stores.filter((store)=>
+         store.shopLocation._id.includes(filterdLocation)
+         ).map((store,index)=>(
+         <Store store={store}  index={index}/>  
+        ))
+      }
+        </div>
+        </div>
+      )
+    }
+
+    //Category && Location Store
+    if(filterdLocation !=="" && filterdCategory !== "" ){
+      return (
+        <div style={{ padding: "30px",paddingTop: "30px" }}>
+        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+      { 
+         store.stores.filter((store)=>
+         store.shopLocation._id.includes(filterdLocation) &&  store.shopCategory._id.includes(filterdCategory)
+         ).map((store,index)=>(
+         <Store store={store}  index={index}/>  
+        ))
+      }
+        </div>
+        </div>
+      )
+    }
 
     
   }
@@ -64,8 +136,7 @@ const ExploreStore = (props) => {
                     className="SubCategory-label-30F"
                     value={filterdLocation}
                     onChange={(e) => {
-                      const selectedLocation = e.target.value;
-                      setFilterdLocation(selectedLocation);
+                      setFilterdLocation(e.target.value);
                     }}
                   >
                     <option className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua" value="">location</option>
@@ -85,8 +156,10 @@ const ExploreStore = (props) => {
                     className="SubCategory-label-30F"
                     value={filterdCategory}
                     onChange={(e) => {
+                     
                       const selectedCategory = e.target.value;
                       setFilterdCategory(selectedCategory)
+                     
                     }}
                   >
                     <option value="">Category</option>
@@ -96,13 +169,6 @@ const ExploreStore = (props) => {
                       </option>
                     ))}
                   </select>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua">
-                <div className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5">
-                  <select {...props}></select>
                 </div>
               </a>
             </li>
@@ -128,6 +194,8 @@ const ExploreStore = (props) => {
                         className="SearchTypeahead-searchInput-1qk e2e-SearchInput-input"
                         onChange={(e) => {
                           setSearchTerm(e.target.value);
+                          setFilterdCategory("");
+                          setFilterdLocation("");
                         }}
                       />
                     </label>

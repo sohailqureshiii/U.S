@@ -1,24 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { MaterialButton, Modal } from "../../components/MaterialUI";
 import { addToCart } from "../../actions/cart.action";
 import { BiRupee } from "react-icons/bi";
 import { WhatsappShareButton } from "react-share";
 import { WhatsappIcon } from "react-share";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Signin from "../Signin";
 
 
 
 const ProductModal = (props) => {
+
   const dispatch = useDispatch();
+  const auth = useSelector(state=>state.auth.authenticate)
+  const [showLoginModal,setShowLoginModal] = useState(false);
 
-    const {productDetails,show,handleclose,} = props
-    if (!productDetails) {
-          return null;
-        }
 
-        
+  const {productDetails,show,handleclose} = props
+  if (!productDetails) {
+        return null;
+      }
 
+
+
+
+
+   
+
+    const followStore = (storeId) =>{
+      // if(auth){
+      //   console.log("sdfds");
+      // }else{
+      //   setShowLoginModal(true);
+      //   // Signin();
+      //   handleclose(false)
+      //   // console.log(showLoginModal);
+       
+      // }
+    }
+
+    // const SigninModal = () =>{
+           
+ 
+     
+      
+    // }
     return(
+      <>
         <Modal
         visible={show}
         onClose={handleclose}
@@ -37,14 +65,43 @@ const ProductModal = (props) => {
               {/* action buttons */}
             </div>
           </div>
-          {/* home > category > subCategory > productName */}
           <div className=" detailsWrapper">
             <div className="prodDesc clearfix">
               <div className="productDetails" style={{ width: "600px" }}>
                 <div>
                   <div className="Storename" style={{ maxWidth: "521px",top:'-1px' }}>
                     <p>Mi Store
-                    <button style={{marginLeft:'250px'}} className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl">Follow Store</button>
+                    {
+                      auth ? <button 
+                    style={{marginLeft:'250px'}} 
+                    className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
+                    onClick = { ()=>{
+                      followStore(productDetails.createdBy._id) 
+                    }
+                   
+                     
+
+                    }
+                    >
+                    Follow Store
+                    </button> 
+                    : 
+                    <button 
+                    style={{marginLeft:'250px'}} 
+                    className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
+                    onClick = { ()=>{
+                       setShowLoginModal(true)
+                       handleclose(false)
+                    }
+                   
+                     
+
+                    }
+                    >
+                    Follow Store
+                    </button>
+                    }
+                    
                     </p>
                     <p  style={{
                         width: "130px",
@@ -68,7 +125,7 @@ const ProductModal = (props) => {
                     {productDetails.price}
                   </span>
 
-                  {/* <span>i</span> */}
+    
                 </div>
                 <div>
                   <p style={{ display: "flex", maxWidth: "500px" }}>
@@ -141,7 +198,14 @@ const ProductModal = (props) => {
           </div>
         </div>
       </Modal>
+      <Signin
+      show={showLoginModal}
+      handleclose={()=>setShowLoginModal(false)}
+        />
+      </>
     );
+
+    
  
   
   

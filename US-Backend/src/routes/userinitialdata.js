@@ -3,6 +3,6 @@ const { userinitialData } = require('../controller/userinitialdata');
 const router = express.Router();
 
 
-router.post('/userinitialdata', userinitialData);
+router.get('/userinitialdata', userinitialData);
 
 module.exports = router;
