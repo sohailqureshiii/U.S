@@ -22,7 +22,7 @@
   width: 90%;
     margin: auto;
     min-height: 150px;
-    min-width: 18rem;
+    min-width: 30rem;
     border-radius: 0.6rem;
   background: #fff;
   margin: 0 auto;
@@ -43,7 +43,7 @@
 .modalClose{
   position: absolute;
   color: #fff;
-  right: 15px;
+  right: -25px;
   font-size: 20px;
 }
 
