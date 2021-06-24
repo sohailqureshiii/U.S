@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./style.css";
 import NavBar from "../Navbar";
@@ -13,35 +13,24 @@ import Store from "../../components/Store";
 const ExploreStore = (props) => {
   const store = useSelector((state) => state.store);
   const categoriesList = useSelector((state) => state.category.categories);
-  const location = useSelector((state)=>state.location.locations)
+  const location = useSelector((state) => state.location.locations);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterdLocation,setFilterdLocation] = useState("");
-  const [filterdCategory,setFilterdCategory] = useState("");
- 
+  const [filterdLocation, setFilterdLocation] = useState("");
+  const [filterdCategory, setFilterdCategory] = useState("");
 
-  const renderStores = () =>{
-
-    if(searchTerm === "" && filterdCategory === "" && filterdLocation === ""){
-      return(
+  const renderStores = () => {
+    if (searchTerm === "" && filterdCategory === "" && filterdLocation === "") {
+      return (
         <div style={{ padding: "30px", paddingTop: "30px" }}>
-       <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
-       {
-         store.stores.map((store,index)=>(
-           <Store store={store} />
-         ))
-       }
-  
-       </div>
-       </div>
+          <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+            {store.stores.map((store, index) => (
+              <Store store={store} />
+            ))}
+          </div>
+        </div>
       );
     }
-
-    
-
-    
-  }
- 
-
+  };
 
   return (
     <>
@@ -50,17 +39,19 @@ const ExploreStore = (props) => {
         <nav
           className="NavigationBar-subcategoryList-1nX"
           style={{
-            paddingTop: "10px",
+            padding: "10px",
             border: "1px solid #eaeaea",
             boxShadow: "0 2px 4px rgb(25 25 25 / 15%)",
-            paddingLeft: "100px",
+            paddingLeft: "79px",
+            overflow: "auto",
           }}
         >
           <ul style={{ display: "contents" }}>
             <li>
-            <div className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua">
+              <div className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua">
                 <div className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5">
-                <select className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5"
+                  <select
+                    className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5"
                     className="SubCategory-label-30F"
                     value={filterdLocation}
                     onChange={(e) => {
@@ -68,7 +59,12 @@ const ExploreStore = (props) => {
                       setFilterdLocation(selectedLocation);
                     }}
                   >
-                    <option className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua" value="">location</option>
+                    <option
+                      className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua"
+                      value=""
+                    >
+                      location
+                    </option>
                     {location.map((value) => (
                       <option key={value._id} value={value._id}>
                         {value.name}
@@ -81,28 +77,22 @@ const ExploreStore = (props) => {
             <li>
               <a className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua">
                 <div className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5">
-                <select
+                  <select
                     className="SubCategory-label-30F"
                     value={filterdCategory}
                     onChange={(e) => {
                       const selectedCategory = e.target.value;
-                      setFilterdCategory(selectedCategory)
+                      setFilterdCategory(selectedCategory);
                     }}
+                    style={{border:'none'}}
                   >
-                    <option value="">Category</option>
+                    <option value="" style={{border:'none'}}>Category</option>
                     {categoriesList.map((value) => (
-                      <option key={value._id} value={value._id}>
+                      <option key={value._id} value={value._id} style={{border:'none'}}>
                         {value.name}
                       </option>
                     ))}
                   </select>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua">
-                <div className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5">
-                  <select {...props}></select>
                 </div>
               </a>
             </li>
@@ -119,7 +109,7 @@ const ExploreStore = (props) => {
                   </div>
                   <form className="SearchTypeahead-searchForm-20c">
                     <label for="search">
-                    <input
+                      <input
                         type="search"
                         name="search"
                         autocomplete="off"
@@ -147,7 +137,7 @@ const ExploreStore = (props) => {
         </nav>
       </div>
       <div> {renderStores()}</div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

@@ -65,17 +65,6 @@ a {
   background: transparent;
   outline: none;
 }
-a {
-  color: #000;
-}
-a {
-  color: #818181;
-  text-decoration: none;
-}
-a {
-  background-color: transparent;
-}
-
 .productPriceDetails {
   margin-bottom: 6px;
 }
@@ -417,24 +406,8 @@ button, input, optgroup, select, textarea {
   color: #000;
 }
 
-img {
-  vertical-align: middle;
-}
-img {
-  border: 0;
-}
+
 
 .success {
   color: #51cccc!important;
-}
-a, a:focus, a:hover {
-  color: rgba(0,0,0,.9);
-}
-a {
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
-  outline: none;
 }
