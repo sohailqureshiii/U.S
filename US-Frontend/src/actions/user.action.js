@@ -205,3 +205,29 @@ export const getOrder = (payload) => {
     }
   };
 };
+
+
+export const edituserProfile = (user) =>{
+  return async dispatch => {
+   
+   dispatch({ type:userContants.EDIT_USER_PROFILE_REQUEST});
+          try{
+              const res = await axios.post('/user/editprofile',{...user});
+              if(res.status === 201){
+                  dispatch({
+                      type:userContants.EDIT_USER_PROFILE_SUCCESS,
+                      payload:{updateduserProfile:res.data.userInfo}
+                    
+                  });
+              }else{
+                  dispatch({
+                     type:userContants.EDIT_USER_PROFILE_FAILURE,
+                     payload:{error:res.data.err}
+                  })
+              }
+          }catch(error){
+              console.log(error);
+          }
+ 
+ }
+ }

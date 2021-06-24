@@ -543,13 +543,6 @@ svg {
   width: 24;
 }
 
-a,
-a:visited {
-  /* color: #00376b;
-  color: rgba(var(--fe0, 0, 55, 107), 1); */
-  text-decoration: none;
-}
-
 ._2z6nI {
   border-top: 1px solid #dbdbdb;
   border-top: 1px solid rgba(var(--b38, 219, 219, 219), 1);
@@ -625,10 +618,3 @@ a:visited {
     width: 100%;
 }  */
 
-a {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  vertical-align: baseline;
-}

@@ -68,3 +68,27 @@ exports.signin = (req, res) => {
             }
         })
 }
+
+exports.edituserProfile = async(req,res)=>{
+    const {
+        firstName, lastName, email
+     } = req.body;  
+     
+     const updatedUserProdile = await User.findOneAndUpdate({_id:req.user._id},{$set:{firstName,lastName,email}},
+        {new:true,useFindAndModify: false},
+        (err,updatedUserInfo)=>{
+            if(err) {
+                 return res.status(400).json({err});
+            }
+            if(updatedUserInfo){
+                const user = User.findOne({_id:req.user._id})
+                .select("-password")
+                .exec((err,userInfo)=>{
+                    if(err)    return res.status(400).json({err});
+                    if(userInfo){
+                        return res.status(201).json({userInfo});
+                    }
+                });
+            }
+        })
+}
