@@ -11,3 +11,9 @@ body{
     justify-content: space-between;
 }
  
+*{
+    -ms-overflow-style: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }

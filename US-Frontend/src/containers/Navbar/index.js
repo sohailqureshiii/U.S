@@ -3,12 +3,8 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import {
   Modal,
-  MaterialInput,
-  MaterialButton,
   DropdownMenu,
 } from "../../components/MaterialUI";
-import Shopisthan__logo_bolte from "../../img/shopisthan_logo_bolte.png";
-import Shopisthan__logo from "../../img/shopisthan-logo.png";
 import Profilepiclogo from "../../img/icons8-male-user-50.png";
 import Carticon from "../../img/cart.png";
 import Storeicon from "../../img/shop.png";
@@ -198,6 +194,7 @@ const Navigationbar = (props) => {
                     <div>
                       <label className="spectrum-FieldLabel">Password</label>
                       <input
+                       type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="spectrum-Textfield spectrum-Textfield--quiet"
@@ -257,7 +254,7 @@ const Navigationbar = (props) => {
               </h3>
             </a>
           </Link>
-          <Link className="cart" to="/">
+          <Link className="cart" to="/favorite">
             <a className="PrimaryNav-coreNavigationLink-2uv e2e-Nav-jobs">
               <h3 className="PrimaryNav-coreNavigationLabel-3rj">
                 <div class="link-background">

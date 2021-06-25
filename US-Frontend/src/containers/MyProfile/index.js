@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import Profilepic from "../../img/profilepic.jpg";
 import NavBar from "../Navbar";
-import NewModal from "../../components/Modal-BT";
-import Input from "../../components/Modal-BT/input";
+import {
+  Modal,
+  DropdownMenu,
+} from "../../components/MaterialUI";
 import { edituserProfile } from "../../actions";
 
 /**
@@ -33,13 +35,13 @@ const MyProfile = (props) => {
 
   const renderUserEditModal = () => {
     return (
-      <NewModal
-        show={userEditModal}
+      <Modal
+        visible={userEditModal}
         handleclose={() => setUserEditModal(false)}
-        onSubmit={editUser}
+        // onSubmit={editUser}
         modaltitle={`Edit Profile`}
       >
-        <Input
+        {/* <Input
           label={"First Name"}
           placeholder={`First Name`}
           value={firstName}
@@ -58,8 +60,55 @@ const MyProfile = (props) => {
           value={email}
           placeholder={`Enter Email`}
           onChange={(e) => setEmail(e.target.value)}
-        />
-      </NewModal>
+        /> */}
+
+        <section className="CardLayout__content" style={{paddingLeft:'100px'}}>
+                <form>
+                  <section className="EmailPage__email-field form-group">
+                  <div>
+                      <label className="spectrum-FieldLabel">
+                        First Name
+                      </label>
+                      <input
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        className="spectrum-Textfield spectrum-Textfield--quiet"
+                      ></input>
+                    </div>
+                    <div>
+                      <label className="spectrum-FieldLabel">
+                        Last Name
+                      </label>
+                      <input
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        className="spectrum-Textfield spectrum-Textfield--quiet"
+                      ></input>
+                    </div>
+                    <div>
+                      <label className="spectrum-FieldLabel">Email</label>
+                      <input
+                       type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="spectrum-Textfield spectrum-Textfield--quiet"
+                      ></input>
+                    </div>
+                  </section>
+                  <section className="EmailPage__submit mod-submit">
+                    <div className="ta-left"></div>
+                    <div className="ta-right">
+                      <button
+                        onClick={editUser}
+                        className="spectrum-Button spectrum-Button--cta SpinnerButton SpinnerButton--right"
+                      >
+                        <span className="spectrum-Button-label">Submit</span>
+                      </button>
+                    </div>
+                  </section>
+                </form>
+              </section>
+      </Modal>
     );
   };
 
