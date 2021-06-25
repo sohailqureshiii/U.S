@@ -43,7 +43,7 @@ const Product = (props) => {
                     <div className="Owners-root-3c9 Owners-dark-1Vh Owners-overflowText-3Yn ProjectCoverNeue-owners-1qo">
                       <span className="js-mini-profile Owners-ownerAndAvatar-1d5">
                         <div className="Owners-owner-2lB e2e-Owner-user-link">
-                          {product.name}
+                      {product.name}
                         </div>
                       </span>
                     </div>
@@ -66,7 +66,7 @@ const Product = (props) => {
                         to={`/${product.createdBy._id}/store`}
                         className="Owners-owner-2lB e2e-Owner-user-link"
                       >
-                        By -{product.createdBy.shopName}
+                        {/* By -{product.createdBy.shopName} */}
                       </NavLink>
                     </span>
                   </div>
