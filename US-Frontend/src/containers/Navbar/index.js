@@ -13,6 +13,7 @@ import Wishlisticon from "../../img/heart.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin, signout, signup as _signup } from "../../actions";
 
+
 /**
  * @author
  * @function Navigationbar
@@ -163,6 +164,8 @@ const Navigationbar = (props) => {
     );
   };
 
+
+
   return (
     <>
       <nav className="navbar">
@@ -206,6 +209,7 @@ const Navigationbar = (props) => {
                     <div className="ta-right">
                       <button
                         onClick={login}
+                        
                         className="spectrum-Button spectrum-Button--cta SpinnerButton SpinnerButton--right"
                       >
                         <span className="spectrum-Button-label">Submit</span>
@@ -217,6 +221,7 @@ const Navigationbar = (props) => {
             </section>
           </div>
         </Modal>
+        
         <h3 className="logo">
           <li className="PrimaryNav-coreNavigationItem-236 PrimaryNav-home-2zH">
             <a href="/" className="PrimaryNav-coreNavigationLink-2uv">

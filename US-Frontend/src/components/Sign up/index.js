@@ -14,6 +14,8 @@ const Signin = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const auth = useSelector(state=>state.auth)
   const  dispatch = useDispatch();
   const {show,handleclose} = props;
@@ -25,23 +27,57 @@ const Signin = (props) => {
 
   };
 
+  const userSignup = () => {
+    const user = { firstName, lastName, email, password };
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      email === "" ||
+      password === ""
+    ) {
+      return;
+    }
+
+    dispatch(_signup(user));
+  };
+
     return (
         <> 
     <Modal visible={show} onClose={() => handleclose(false)}>
     <div className="CardLayout-Toaster-Container">
             <section className="CardLayout">
               <header className="CardLayout__header">
-                <h1 className="spectrum-Heading1">Sign In</h1>
+                <h1 className="spectrum-Heading1">Sign Up</h1>
                 <p className="EmailPage__instructions">
-                  New User ?
+                  Already Account ?
                   <a className="spectrum-Link EmailPage__create-account-link">
-                    Creat an Account
+                    Login
                   </a>
                 </p>
               </header>
               <section className="CardLayout__content">
                 <form>
                   <section className="EmailPage__email-field form-group">
+                  <div>
+                      <label className="spectrum-FieldLabel">
+                        First Name
+                      </label>
+                      <input
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        className="spectrum-Textfield spectrum-Textfield--quiet"
+                      ></input>
+                    </div>
+                  <div>
+                      <label className="spectrum-FieldLabel">
+                      Last Name
+                      </label>
+                      <input
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        className="spectrum-Textfield spectrum-Textfield--quiet"
+                      ></input>
+                    </div>
                     <div>
                       <label className="spectrum-FieldLabel">
                         Email Address
@@ -66,7 +102,7 @@ const Signin = (props) => {
                     <div className="ta-left"></div>
                     <div className="ta-right">
                       <button
-                        onClick={login}
+                        onClick={userSignup}
                         
                         className="spectrum-Button spectrum-Button--cta SpinnerButton SpinnerButton--right"
                       >
@@ -79,58 +115,6 @@ const Signin = (props) => {
             </section>
           </div>
         </Modal>
-             {/* <Modal visible={show} onClose={() => handleclose(false)}>
-          <div className="authContainer">
-            <div className="row">
-              <div className="leftspace">
-                <img
-                  style={{ width: 70, height: 70 }}
-                  src={Shopisthan__logo_bolte}
-                  alt="Shopisthan Logo"
-                />
-                <h2 style={{ marginTop: 10 }}>Login</h2>
-                <p style={{ fontSize: 15, marginTop: 10 }}>
-                  An effort to give everyone a Commerce Store – even if you are
-                  selling from home or from multiple locations.
-                </p>
-              </div>
-              <div className="rightspace">
-                <div
-                  className="loginInputContainer"
-                  style={{ width: 250, marginTop: 20 }}
-                >
-                  {auth.error && (
-                    <div style={{ color: "red", fontSize: 12 }}>
-                      {auth.error}
-                    </div>
-                  )}
-                 
-                  <MaterialInput
-                    type="text"
-                    label="Email/Mobile Number"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <MaterialInput
-                    type="password"
-                    label="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <MaterialButton
-                    title={"Login"}
-                    bgColor="#fb641b"
-                    textColor="#ffffff"
-                    style={{
-                      margin: "40px 0 20px 0",
-                    }}
-                    onClick={login}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </Modal> */}
         </>
     )
 }

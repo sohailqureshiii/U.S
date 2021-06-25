@@ -7,6 +7,8 @@ import { WhatsappIcon } from "react-share";
 import { useDispatch, useSelector } from "react-redux";
 import Signin from "../Signin";
 import { followStoreAction, unfollowStoreAction } from "../../actions/follow.action";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProductModal = (props) => {
@@ -16,10 +18,17 @@ const ProductModal = (props) => {
   const [showLoginModal,setShowLoginModal] = useState(false);
 
 
- const {productDetails,show,handleclose} = props
+  const { productDetails, show, handleclose } = props;
   if (!productDetails) {
-        return null;
-      }
+    return null;
+  }
+
+  const diffToast = () => {
+    toast.success("Item Added Successfull !", {
+      position:'top-center'
+      
+    });
+  }
 
   const followStore = (storeId) => {
         const store = {
@@ -211,9 +220,11 @@ const ProductModal = (props) => {
                       dispatch(addToCart({ _id, name, price, img, createdBy }));
                       // props.history.push(`/cart`);
                       handleclose(false);
+                      
                     }}
+                    onClick={diffToast}
                   >
-                    <span>ADD TO Cart</span>
+                    <span >ADD TO Cart</span>
                   </button>
                   <button id="addToCart" className="wishlists pull-left ">
                     <span>SHARE</span>
@@ -224,7 +235,9 @@ const ProductModal = (props) => {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </Modal>
+    
     <Signin
       show={showLoginModal}
       handleclose={()=>setShowLoginModal(false)}
