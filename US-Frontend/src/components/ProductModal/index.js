@@ -10,13 +10,12 @@ import { followStoreAction, unfollowStoreAction } from "../../actions/follow.act
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ProductModal = (props) => {
 
+const ProductModal = (props) => {
   const dispatch = useDispatch();
   const auth = useSelector(state=>state.auth)
   const user = useSelector(state=>state.user)
   const [showLoginModal,setShowLoginModal] = useState(false);
-
 
 
   const { productDetails, show, handleclose } = props;
@@ -31,7 +30,81 @@ const ProductModal = (props) => {
     });
   }
 
+  const followStore = (storeId) => {
+        const store = {
+                followId:storeId
+        }
+        dispatch(followStoreAction(store))
+        handleclose(false)
+    }
+
+    
+  const UnFollowStore = (storeId) => {
+    const store = {
+      unfollowId:storeId
+    }
+    dispatch(unfollowStoreAction(store))
+    handleclose(false)
+}
+
+      const renderButton = (storeId) =>{
+              let storeterm = storeId;
+        if(!auth.authenticate){
+          return(
+            <button 
+            style={{marginLeft:'250px'}} 
+            className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
+            onClick = { ()=>{
+               setShowLoginModal(true)
+               handleclose(false)
+            }
+           
+             
+
+            }
+            >
+            Follow Store
+            </button>
+          );
+        }
+        if(auth.authenticate && !user.following.includes(storeterm)){
+          return(
+            <button 
+                    style={{marginLeft:'250px'}} 
+                    className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
+                    onClick = { ()=>{
+                      followStore(storeterm) 
+                   
+                    }}
+                    >
+                    Follow Store
+           </button> 
+          )
+        }
+
+        if(auth.authenticate && user.following.includes(storeterm)){
+          return(
+            <button 
+                    style={{marginLeft:'250px'}} 
+                    className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
+                    onClick = { ()=>{
+                      UnFollowStore(storeterm) 
+                    }}
+                    >
+                    Following
+           </button> 
+          )
+        }
+
+      }
+
+
+  // const { productDetails, show, handleclose } = props;
+  // if (!productDetails) {
+  //   return null;
+  // }
   return (
+    <>
     <Modal visible={show} onClose={handleclose} size="lg">
       <div className="productDescriptionContainer">
         <div className="flexRow">
@@ -57,12 +130,15 @@ const ProductModal = (props) => {
                 >
                   <p>
                     Mi Store
-                    <button
+                    {
+                     renderButton(productDetails.createdBy._id)
+                    }
+                    {/* <button
                       style={{ marginLeft: "250px" }}
                       className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
                     >
                       Follow Store
-                    </button>
+                    </button> */}
                   </p>
                   <p
                     style={{
@@ -162,6 +238,11 @@ const ProductModal = (props) => {
       <ToastContainer/>
     </Modal>
     
+    <Signin
+      show={showLoginModal}
+      handleclose={()=>setShowLoginModal(false)}
+        />
+    </>
   );
 };
 

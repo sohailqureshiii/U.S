@@ -1,5 +1,5 @@
 import axios from "../helpers/axios";
-import { authConstants, cartConstants, userContants } from "./constants";
+import { authConstants, cartConstants, followContants, userContants } from "./constants";
 
 
 export const signup = (user) => {
@@ -238,13 +238,20 @@ export const userData = () =>{
    
           try{
               const res = await axios.get('/userData');
-              console.log("gewrg ergwergewg",res);
               if(res.status === 200){
-                const { following } = res.data;
+                const {following,followingProduct,followingStore} = res.data;
                   dispatch({
-                   type:authConstants.GET_ALL_FOLLOWING_SUCCESS,
+                   type:followContants.GET_ALL_FOLLOWING_SUCCESS,
                    payload:{following}
                    });
+                   dispatch({
+                    type:followContants.GET_ALL_FOLLOWING_PRODUCTS_SUCCESS,
+                    payload:{followingProduct}
+                    });
+                    dispatch({
+                      type:followContants.GET_ALL_FOLLOWING_STORE_SUCCESS,
+                      payload:{followingStore}
+                      });
               }else{
                   dispatch({
                      type:authConstants.GET_ALL_FOLLOWING_FAILURE,

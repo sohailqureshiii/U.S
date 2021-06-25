@@ -1,5 +1,6 @@
 import axiosIntance from "../helpers/axios";
-import { authConstants } from "./constants";
+import { followContants } from "./constants";
+import { userData } from "./user.action";
 
 export const followStoreAction = (from) =>{
 
@@ -8,11 +9,11 @@ export const followStoreAction = (from) =>{
   
     if(res.status===201){
          const {following} = res.data;
-         console.log(following);
         dispatch({
-          type: authConstants.ADD_NEW_FOLLOWING_SUCCESS,
+          type:followContants.ADD_NEW_FOLLOWING_SUCCESS,
           payload:{following:following}
         })
+        dispatch(userData());
     }
     }
    
@@ -22,7 +23,16 @@ export const followStoreAction = (from) =>{
   export const unfollowStoreAction = (from) =>{
     return async(dispatch)=>{
       const res = await axiosIntance.put(`/unfollow`,{...from});
-      console.log(res);
+      if(res.status===201){
+        dispatch(userData());
+        // const {following} = res.data;
+        // console.log("result",following);
+      //  dispatch({
+      //    type:followContants.ADD_NEW_FOLLOWING_SUCCESS,
+      //    payload:{following:following}
+      //  })
+   }
+  
     }
    
   

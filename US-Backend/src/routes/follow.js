@@ -45,8 +45,9 @@ router.put(`/unfollow`,requireSignin,userMiddleware,(req,res)=>{
         
         User.findByIdAndUpdate(req.user._id,{
             $pull:{following:req.body.unfollowId}
-        },{new:true,useFindAndModify: false}).select("-hash_password").then(result=>{
-            res.json(result)
+        },{new:true,useFindAndModify: false}).select("-hash_password").then(following=>{
+            // res.json(result)
+            return   res.status(201).json(following)
         }).catch(err=>{
             return res.status(422).json({error:err})
         })
