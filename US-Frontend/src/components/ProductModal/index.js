@@ -1,15 +1,25 @@
-import React from "react";
-import { Modal } from "../../components/MaterialUI";
+import React, { useState } from "react";
+import { MaterialButton, Modal } from "../../components/MaterialUI";
 import { addToCart } from "../../actions/cart.action";
 import { BiRupee } from "react-icons/bi";
 import { WhatsappShareButton } from "react-share";
 import { WhatsappIcon } from "react-share";
-import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import { useDispatch, useSelector } from "react-redux";
+import Signin from "../Signin";
+import { followStoreAction, unfollowStoreAction } from "../../actions/follow.action";
 
 const ProductModal = (props) => {
+
   const dispatch = useDispatch();
+  const auth = useSelector(state=>state.auth)
+  const user = useSelector(state=>state.user)
+  const [showLoginModal,setShowLoginModal] = useState(false);
+
+
+  const {productDetails,show,handleclose} = props
+  if (!productDetails) {
+        return null;
+      }
 
   const { productDetails, show, handleclose } = props;
   if (!productDetails) {

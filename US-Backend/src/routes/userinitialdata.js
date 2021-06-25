@@ -1,8 +1,10 @@
 const express = require('express');
-const { userinitialData } = require('../controller/userinitialdata');
+const { requireSignin, userMiddleware } = require('../common-middleware');
+const { userinitialData, userData } = require('../controller/userinitialdata');
 const router = express.Router();
 
 
-router.post('/userinitialdata', userinitialData);
+router.get('/userinitialdata', userinitialData);
+router.get('/userData',requireSignin,userMiddleware,userData);
 
 module.exports = router;

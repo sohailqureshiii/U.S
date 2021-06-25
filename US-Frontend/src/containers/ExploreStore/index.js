@@ -15,22 +15,121 @@ const ExploreStore = (props) => {
   const categoriesList = useSelector((state) => state.category.categories);
   const location = useSelector((state) => state.location.locations);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterdLocation, setFilterdLocation] = useState("");
-  const [filterdCategory, setFilterdCategory] = useState("");
+  const [filterdLocation,setFilterdLocation] = useState("");
+  const [filterdCategory,setFilterdCategory] = useState("");
+ 
+ 
 
-  const renderStores = () => {
-    if (searchTerm === "" && filterdCategory === "" && filterdLocation === "") {
-      return (
+  const renderStores = () =>{
+
+    //All Store
+    if(searchTerm === "" && filterdCategory === "" && filterdLocation === ""){
+      return(
         <div style={{ padding: "30px", paddingTop: "30px" }}>
-          <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
-            {store.stores.map((store, index) => (
-              <Store store={store} />
-            ))}
-          </div>
-        </div>
+       <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+       {
+         store.stores.map((store,index)=>(
+           <Store store={store} index={index} />
+         ))
+       }
+  
+       </div>
+       </div>
       );
     }
-  };
+
+    //Search Store
+    if(searchTerm !=="" ){
+      return (
+        <div style={{ padding: "30px",paddingTop: "30px" }}>
+        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+      { 
+         store.stores.filter((store)=>
+         store.shopName
+                  .toLowerCase()
+                  .split(" ")
+                  .join("")
+                  .includes(searchTerm.toLowerCase().split(" ").join("")) 
+         ).map((store,index)=>(
+         <Store store={store} index={index} />  
+        ))
+      }
+        </div>
+        </div>
+      )
+    }
+
+    //Category Store
+    if(filterdCategory !=="" && filterdLocation === "" ){
+      return (
+        <div style={{ padding: "30px",paddingTop: "30px" }}>
+        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+      { 
+         store.stores.filter((store)=>
+         store.shopCategory._id.includes(filterdCategory)
+         ).map((store,index)=>(
+         <Store store={store}  index={index}/>  
+        ))
+      }
+        </div>
+        </div>
+      )
+    }
+
+    //Location Store
+    if(filterdLocation !=="" && filterdCategory === "" ){
+      return (
+        <div style={{ padding: "30px",paddingTop: "30px" }}>
+        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+      { 
+         store.stores.filter((store)=>
+         store.shopLocation._id.includes(filterdLocation)
+         ).map((store,index)=>(
+         <Store store={store}  index={index}/>  
+        ))
+      }
+        </div>
+        </div>
+      )
+    }
+
+    //Category && Location Store
+    if(filterdLocation !=="" && filterdCategory !== "" ){
+      return (
+        <div style={{ padding: "30px",paddingTop: "30px" }}>
+        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+      { 
+         store.stores.filter((store)=>
+         store.shopLocation._id.includes(filterdLocation) &&  store.shopCategory._id.includes(filterdCategory)
+         ).map((store,index)=>(
+         <Store store={store}  index={index}/>  
+        ))
+      }
+        </div>
+        </div>
+      )
+    }
+
+    
+  }
+ 
+
+  // const [filterdLocation, setFilterdLocation] = useState("");
+  // const [filterdCategory, setFilterdCategory] = useState("");
+
+  // const renderStores = () => {
+  //   if (searchTerm === "" && filterdCategory === "" && filterdLocation === "") {
+  //     return (
+  //       <div style={{ padding: "30px", paddingTop: "30px" }}>
+  //         <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+  //           {store.stores.map((store, index) => (
+  //             <Store store={store} />
+  //           ))}
+  //         </div>
+  //       </div>
+  //     );
+  //   }
+  // };
 
   return (
     <>
@@ -55,8 +154,7 @@ const ExploreStore = (props) => {
                     className="SubCategory-label-30F"
                     value={filterdLocation}
                     onChange={(e) => {
-                      const selectedLocation = e.target.value;
-                      setFilterdLocation(selectedLocation);
+                      setFilterdLocation(e.target.value);
                     }}
                   >
                     <option
@@ -81,8 +179,10 @@ const ExploreStore = (props) => {
                     className="SubCategory-label-30F"
                     value={filterdCategory}
                     onChange={(e) => {
+                     
                       const selectedCategory = e.target.value;
-                      setFilterdCategory(selectedCategory);
+                      setFilterdCategory(selectedCategory)
+                     
                     }}
                     style={{border:'none'}}
                   >
@@ -118,6 +218,8 @@ const ExploreStore = (props) => {
                         className="SearchTypeahead-searchInput-1qk e2e-SearchInput-input"
                         onChange={(e) => {
                           setSearchTerm(e.target.value);
+                          setFilterdCategory("");
+                          setFilterdLocation("");
                         }}
                       />
                     </label>

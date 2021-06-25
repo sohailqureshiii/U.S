@@ -9,6 +9,7 @@ import locationReducers from './location.reducers';
 
 
 
+
 const rootReducer = combineReducers({
 
     category: categoryReducer,
