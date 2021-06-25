@@ -231,3 +231,31 @@ export const edituserProfile = (user) =>{
  
  }
  }
+
+ 
+export const userData = () =>{
+  return async dispatch => {
+   
+          try{
+              const res = await axios.get('/userData');
+              console.log("gewrg ergwergewg",res);
+              if(res.status === 200){
+                const { following } = res.data;
+                  dispatch({
+                   type:authConstants.GET_ALL_FOLLOWING_SUCCESS,
+                   payload:{following}
+                   });
+              }else{
+                  dispatch({
+                     type:authConstants.GET_ALL_FOLLOWING_FAILURE,
+               
+                  })
+              }
+          }catch(error){
+              console.log(error);
+          }
+ 
+ }
+ }
+
+ 

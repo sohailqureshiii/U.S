@@ -3,6 +3,7 @@ import { authConstants, userContants } from "../actions/constants"
 const initState = {
     address: [],
     orders: [],
+    following:[],
     orderDetails: {},
     error: null,
     loading: false,
@@ -105,6 +106,13 @@ const initState = {
         error: action.payload.error,
       };
       break;
+      case authConstants.GET_ALL_FOLLOWING_SUCCESS:
+        state = {
+            ...state,
+            following:action.payload.following
+        }
+        
+        break;
     }
   
     return state;

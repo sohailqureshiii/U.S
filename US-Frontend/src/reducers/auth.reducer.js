@@ -6,7 +6,8 @@ const initState = {
         firstName: '',
         lastName: '',
         email: '',
-        picture: ''
+        picture: '',
+        
     },
     authenticate: false,
     authenticating: false,
@@ -55,6 +56,7 @@ export default (state = initState, action) => {
                 loading: false
             }
             break;
+          
     }
 
     return state;
