@@ -1,22 +1,23 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import ProductModal from '../ProductModal';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import ProductModal from "../ProductModal";
 
 const Product = (props) => {
-    const {
-      product
-    } = props
+  const { product } = props;
 
-    const [show, setShow] = useState(false);
-    const [productDetails,setProductDetails] = useState("");
-    const handleShow = (product) => { setShow(true);setProductDetails(product)}
-    return (
-      <>
-        <div key={product._id} style={{ border:' 1px solid #d4d4d4',
-        borderRadius: '5px'}}>
-        <div onClick={()=>handleShow(product)}
-          key={product._id}
-        >
+  const [show, setShow] = useState(false);
+  const [productDetails, setProductDetails] = useState("");
+  const handleShow = (product) => {
+    setShow(true);
+    setProductDetails(product);
+  };
+  return (
+    <>
+      <div
+        key={product._id}
+        style={{ border: " 1px solid #d4d4d4", borderRadius: "5px" }}
+      >
+        <div onClick={() => handleShow(product)} key={product._id}>
           <div className="Galleries-gridCover-j9D">
             <div className="ProjectCoverNeue-root-166 ProjectCoverNeue-statsVisible-19j ProjectCover-cover-3zh">
               <div className="Cover-cover-2mr ProjectCoverNeue-cover-3Ni e2e-ProjectCoverNeue js-project-cover e2e-ProjectCoverNeue-cover ProjectCoverNeue-coverWithFlags-1Aq ProjectCoverNeue-statsVisible-19j ProjectCoverNeue-loaded-26R">
@@ -26,7 +27,7 @@ const Product = (props) => {
                     <img
                       sizes="404px"
                       style={{ padding: "10px" }}
-                      src= "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
+                      src="https://images-eu.ssl-images-amazon.com/images/I/41E5Bva7sOL._AC_SX184_.jpg"
                       alt="new"
                       loading="lazy"
                       class="ProjectCoverNeue-image-1MZ js-cover-image"
@@ -50,7 +51,8 @@ const Product = (props) => {
                   <div className="Stats-stats-1iI">
                     <div className="Product__priceFlex">
                       <div
-                        className="Owners-owner-2lB e2e-Owner-user-link" style={{marginBottom:'20px'}}
+                        className="Owners-owner-2lB e2e-Owner-user-link"
+                        style={{ marginBottom: "20px" }}
                       >
                         View Details
                       </div>
@@ -60,7 +62,10 @@ const Product = (props) => {
                 <span className="ProjectCoverNeue-ownersContainer-3Go">
                   <div className="Owners-root-3c9 Owners-dark-1Vh Owners-overflowText-3Yn ProjectCoverNeue-owners-1qo">
                     <span className="js-mini-profile Owners-ownerAndAvatar-1d5">
-                      <NavLink  to={`/${product.createdBy._id}/store`}  className="Owners-owner-2lB e2e-Owner-user-link">
+                      <NavLink
+                        to={`/${product.createdBy._id}/store`}
+                        className="Owners-owner-2lB e2e-Owner-user-link"
+                      >
                         By -{product.createdBy.shopName}
                       </NavLink>
                     </span>
@@ -73,14 +78,13 @@ const Product = (props) => {
         </div>
       </div>
 
-      <ProductModal 
-       show={show}
-       handleclose={()=>setShow(false)}
-       productDetails ={productDetails}
-       />
+      <ProductModal
+        show={show}
+        handleclose={() => setShow(false)}
+        productDetails={productDetails}
+      />
+    </>
+  );
+};
 
-      </>
-    )
-}
-
-export default Product
+export default Product;

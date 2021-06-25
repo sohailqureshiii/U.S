@@ -1,5 +1,4 @@
 import axiosIntance from "../helpers/axios";
-import axios from "../helpers/axios";
 import { authConstants, cartConstants } from "./constants";
 
 export const login = (user) => {
