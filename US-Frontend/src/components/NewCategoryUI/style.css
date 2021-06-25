@@ -442,6 +442,7 @@ select#xyz {
     line-height: 1;
     color: #696969;
     font-weight: 100px;
+    border: none;
 }
 
 h5 {
