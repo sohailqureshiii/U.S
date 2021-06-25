@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Signin from "../Signin";
 import { followStoreAction, unfollowStoreAction } from "../../actions/follow.action";
 
+
 const ProductModal = (props) => {
   const dispatch = useDispatch();
   const auth = useSelector(state=>state.auth)
@@ -15,7 +16,7 @@ const ProductModal = (props) => {
   const [showLoginModal,setShowLoginModal] = useState(false);
 
 
-  const {productDetails,show,handleclose} = props
+ const {productDetails,show,handleclose} = props
   if (!productDetails) {
         return null;
       }
@@ -93,7 +94,6 @@ const ProductModal = (props) => {
   // if (!productDetails) {
   //   return null;
   // }
-
   return (
     <>
     <Modal visible={show} onClose={handleclose} size="lg">
