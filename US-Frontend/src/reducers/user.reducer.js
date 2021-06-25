@@ -1,9 +1,11 @@
-import { authConstants, userContants } from "../actions/constants"
+import { authConstants, followContants, userContants } from "../actions/constants"
 
 const initState = {
     address: [],
     orders: [],
     following:[],
+    followingStores:[],
+    followingProducts:[],
     orderDetails: {},
     error: null,
     loading: false,
@@ -106,13 +108,24 @@ const initState = {
         error: action.payload.error,
       };
       break;
-      case authConstants.GET_ALL_FOLLOWING_SUCCESS:
+      case followContants.GET_ALL_FOLLOWING_SUCCESS:
         state = {
             ...state,
             following:action.payload.following
         }
-        
-        break;
+      break;
+      case followContants.GET_ALL_FOLLOWING_STORE_SUCCESS:
+        state = {
+            ...state,
+            followingStores:action.payload.followingStore
+        }
+      break;
+      case followContants.GET_ALL_FOLLOWING_PRODUCTS_SUCCESS:
+        state = {
+            ...state,
+            followingProducts:action.payload.followingProduct
+        }
+      break;
     }
   
     return state;

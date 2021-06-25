@@ -81,18 +81,8 @@ exports.userData = async(req,res) =>{
                 followingStore
 
              })
-        //    const followingProduct = await Product.find({createdBy:{$in:following}})
-        //      .exec(async(error,product)=>{
-        //          if(error) return res.status(400).json({ error })
-        //          if(product){
-        //               res.status(200).json({
-        //                 following,
-        //                 product
-        //             })
-        //          }
-        //      })
                    
-                } 
+            } 
         })
     
 }
