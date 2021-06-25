@@ -7,6 +7,8 @@ import { WhatsappIcon } from "react-share";
 import { useDispatch, useSelector } from "react-redux";
 import Signin from "../Signin";
 import { followStoreAction, unfollowStoreAction } from "../../actions/follow.action";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductModal = (props) => {
 
@@ -16,10 +18,6 @@ const ProductModal = (props) => {
   const [showLoginModal,setShowLoginModal] = useState(false);
 
 
-  const {productDetails,show,handleclose} = props
-  if (!productDetails) {
-        return null;
-      }
 
   const { productDetails, show, handleclose } = props;
   if (!productDetails) {
