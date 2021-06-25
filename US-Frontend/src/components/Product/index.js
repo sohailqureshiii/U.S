@@ -66,7 +66,7 @@ const Product = (props) => {
                         to={`/${product.createdBy._id}/store`}
                         className="Owners-owner-2lB e2e-Owner-user-link"
                       >
-                        {/* By -{product.createdBy.shopName} */}
+                        By -{product.createdBy.shopName}
                       </NavLink>
                     </span>
                   </div>
