@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getInitialData, isUserLoggedIn } from "./actions";
+import { getInitialData, isUserLoggedIn, userData } from "./actions";
 import Myprofile from "./containers/MyProfile";
 import ProductDetailsPage from "./containers/ProductDetailsPage";
 import CartPage from "./containers/CartPage/index";
@@ -34,6 +34,12 @@ function App() {
 
   useEffect(() => {
     dispatch(updateCart());
+  }, [auth.authenticate]);
+
+  useEffect(() => {
+     if(auth.authenticate){
+       dispatch(userData())
+     }
   }, [auth.authenticate]);
 
   return (

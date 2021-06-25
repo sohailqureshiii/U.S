@@ -16,6 +16,7 @@ const oderRoutes = require('./routes/order');
 const wishListRoutes = require('./routes/wishlist');
 const userinitialdata = require('./routes/userinitialdata');
 const followRoutes = require('./routes/follow');
+const UsereditProfile = require('./routes/auth');
 
 // environment variable 
 env.config();
@@ -42,7 +43,8 @@ app.use('/api', addressRoutes);
 app.use('/api', oderRoutes);
 app.use('/api', wishListRoutes);
 app.use('/api',userinitialdata);
-app.use('/api',followRoutes)
+app.use('/api',followRoutes);
+app.use('/api',UsereditProfile)
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server is running on port ${process.env.PORT}`);

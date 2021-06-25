@@ -6,13 +6,15 @@ import { WhatsappShareButton } from "react-share";
 import { WhatsappIcon } from "react-share";
 import { useDispatch, useSelector } from "react-redux";
 import Signin from "../Signin";
+import { followStoreAction, unfollowStoreAction } from "../../actions/follow.action";
 
 
 
 const ProductModal = (props) => {
 
   const dispatch = useDispatch();
-  const auth = useSelector(state=>state.auth.authenticate)
+  const auth = useSelector(state=>state.auth)
+  const user = useSelector(state=>state.user)
   const [showLoginModal,setShowLoginModal] = useState(false);
 
 
@@ -21,23 +23,78 @@ const ProductModal = (props) => {
         return null;
       }
 
+  const followStore = (storeId) => {
+        const store = {
+                followId:storeId
+        }
+        dispatch(followStoreAction(store))
+        handleclose(false)
+    }
 
+    
+  const UnFollowStore = (storeId) => {
+    const store = {
+      unfollowId:storeId
+    }
+    dispatch(unfollowStoreAction(store))
+    handleclose(false)
+}
 
+      const renderButton = (storeId) =>{
+              let storeterm = storeId;
+        if(!auth.authenticate){
+          return(
+            <button 
+            style={{marginLeft:'250px'}} 
+            className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
+            onClick = { ()=>{
+               setShowLoginModal(true)
+               handleclose(false)
+            }
+           
+             
+
+            }
+            >
+            Follow Store
+            </button>
+          );
+        }
+        if(auth.authenticate && !user.following.includes(storeterm)){
+          return(
+            <button 
+                    style={{marginLeft:'250px'}} 
+                    className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
+                    onClick = { ()=>{
+                      followStore(storeterm) 
+                   
+                    }}
+                    >
+                    Follow Store
+           </button> 
+          )
+        }
+
+        if(auth.authenticate && user.following.includes(storeterm)){
+          return(
+            <button 
+                    style={{marginLeft:'250px'}} 
+                    className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
+                    onClick = { ()=>{
+                      UnFollowStore(storeterm) 
+                    }}
+                    >
+                    Following
+           </button> 
+          )
+        }
+
+      }
 
 
    
-
-    const followStore = (storeId) =>{
-      // if(auth){
-      //   console.log("sdfds");
-      // }else{
-      //   setShowLoginModal(true);
-      //   // Signin();
-      //   handleclose(false)
-      //   // console.log(showLoginModal);
-       
-      // }
-    }
+   
+   
 
     // const SigninModal = () =>{
            
@@ -71,7 +128,7 @@ const ProductModal = (props) => {
                 <div>
                   <div className="Storename" style={{ maxWidth: "521px",top:'-1px' }}>
                     <p>Mi Store
-                    {
+                    {/* {
                       auth ? <button 
                     style={{marginLeft:'250px'}} 
                     className="Btn-button-BGn Btn-primary-1H3 Btn-normal-hI4 js-adobeid-signup e2e-PrimaryNav-signup PrimaryNav-a11yButton-2Cl"
@@ -100,6 +157,9 @@ const ProductModal = (props) => {
                     >
                     Follow Store
                     </button>
+                    } */}
+                    {
+                      renderButton(productDetails.createdBy._id)
                     }
                     
                     </p>

@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import Profilepic from "../../img/profilepic.jpg";
 import NavBar from "../Navbar";
+import NewModal from "../../components/Modal-BT";
+import Input from "../../components/Modal-BT/input";
+import { edituserProfile } from "../../actions";
 
 /**
  * @author
@@ -11,13 +14,60 @@ import NavBar from "../Navbar";
 
 const MyProfile = (props) => {
   const auth = useSelector((state) => state.auth);
+  const [firstName, setFirstName] = useState(auth.user.firstName);
+  const [lastName, setLastName] = useState(auth.user.lastName);
+  const [email, setEmail] = useState(auth.user.email);
+  const [userEditModal, setUserEditModal] = useState(false);
+  const dispatch = useDispatch();
+
+  const editUser = (e) => {
+    e.preventDefault();
+    const user = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+    };
+    dispatch(edituserProfile(auth.user));
+    setUserEditModal(false);
+  };
+
+  const renderUserEditModal = () => {
+    return (
+      <NewModal
+        show={userEditModal}
+        handleclose={() => setUserEditModal(false)}
+        onSubmit={editUser}
+        modaltitle={`Edit Profile`}
+      >
+        <Input
+          label={"First Name"}
+          placeholder={`First Name`}
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+
+        <Input
+          label={"Enter Last Name"}
+          value={lastName}
+          placeholder={`Enter Last Name`}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+
+        <Input
+          label={"Enter Email"}
+          value={email}
+          placeholder={`Enter Email`}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </NewModal>
+    );
+  };
 
   return (
     <>
-      <NavBar/>
-
+      <NavBar />
       {/* ProfileHEader  starts*/}
-      <main className="SCxLW o64aR " role="main">
+      <main className="SCxLW o64aR " role="main" style={{ paddingTop: "55px" }}>
         <div className="v9tJq v9tJq">
           <header className="HVbug">
             <section className="XjzKX">
@@ -30,135 +80,35 @@ const MyProfile = (props) => {
             <section className="zwlfE">
               <section className="nZSzr">
                 <h2 className="_7Uhw9  fKFb1  yUEEX  KV-D4  fDxY1">
-                  {auth.user.username}
+                  First Name : {auth.user.firstName}
                 </h2>
+              </section>
+            </section>
+            <section className="zwlfE">
+              <section className="nZSzr">
+                <h2 className="_7Uhw9  fKFb1  yUEEX  KV-D4  fDxY1">
+                  Last Name : {auth.user.lastName}
+                </h2>
+              </section>
+            </section>
+            <section className="zwlfE">
+              <section className="nZSzr">
+                <h2 className="_7Uhw9  fKFb1  yUEEX  KV-D4  fDxY1">
+                  Email Id : {auth.user.email}
+                </h2>
+              </section>
+            </section>
+            <section className="zwlfE">
+              <section className="nZSzr">
+                <button onClick={() => setUserEditModal(true)}>
+                  Edit Profile
+                </button>
               </section>
             </section>
           </header>
           {/* ProfileHEader  ends*/}
-
-          <ul className="_3dEHb">
-            <li className="LH361">
-              <span className="_81NM2">
-                <span className="g47SY _10XF2">1</span>
-                Products
-              </span>
-            </li>
-            <li className="LH361">
-              <a className="_81NM2">
-                <span className="g47SY _10XF2">19</span>
-                Followers
-              </a>
-            </li>
-            <li className="LH361">
-              <a className="_81NM2">
-                <span className="g47SY _10XF2">32</span>
-                Following
-              </a>
-            </li>
-          </ul>
-          <section className="fx7hk">
-            <a className="_9VEo1 T-jvg">
-              <svg
-                arial-label="Products"
-                className="_8-yf5"
-                // fill="#0095f6"
-                height="24"
-                viewBox="0 0 4848"
-                width="24"
-                tabIndex="0"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z"
-                  fill-rule="evenodd"
-                ></path>
-              </svg>
-            </a>
-            <a className="_9VEo1 T-jvg">
-              <svg
-                arial-label="Products"
-                className="_8-yf5"
-                // fill="#0095f6"
-                height="24"
-                viewBox="0 0 4848"
-                width="24"
-                tabIndex="0"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z"
-                  fill-rule="evenodd"
-                ></path>
-              </svg>
-            </a>
-            <a className="_9VEo1 T-jvg">
-              <svg
-                arial-label="Products"
-                className="_8-yf5"
-                // fill="#0095f6"
-                height="24"
-                viewBox="0 0 4848"
-                width="24"
-                tabIndex="0"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z"
-                  fill-rule="evenodd"
-                ></path>
-              </svg>
-            </a>
-            <a className="_9VEo1 T-jvg">
-              <svg
-                arial-label="Products"
-                className="_8-yf5"
-                // fill="#0095f6"
-                height="24"
-                viewBox="0 0 4848"
-                width="24"
-                tabIndex="0"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z"
-                  fill-rule="evenodd"
-                ></path>
-              </svg>
-            </a>
-          </section>
-          <div className="_2z6nI">
-            <article className="ySN3v">
-              <div>
-                <div
-                  style={{
-                    flexDirection: "column",
-                    paddingBottom: "0px",
-                    paddingTop: "0px",
-                  }}
-                >
-                  <div className="Nnq7C weEfm">
-                    <div className="v1Nh3 kIKUG _bz0w ">
-                      <a>
-                        <div className="eLAPa">
-                          <div>
-                            <img
-                              className="FFVAD"
-                              style={{ objectFit: "cover", sizes: "293px" }}
-                              src={Profilepic}
-                            ></img>
-                          </div>
-                          <div className="_9AAhH0"></div>
-                        </div>
-                      </a>
-                    </div>
-                    idr product show krna he
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
         </div>
+        {renderUserEditModal()}
       </main>
     </>
   );

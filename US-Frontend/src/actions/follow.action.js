@@ -1,5 +1,7 @@
+import axiosIntance from "../helpers/axios";
+import { authConstants } from "./constants";
 
-export const followStore = (from) =>{
+export const followStoreAction = (from) =>{
 
     return async(dispatch)=>{
       const res = await axiosIntance.put(`/follow`,{...from});
@@ -17,7 +19,7 @@ export const followStore = (from) =>{
   
   }
   
-  export const unfollowStore = (from) =>{
+  export const unfollowStoreAction = (from) =>{
     return async(dispatch)=>{
       const res = await axiosIntance.put(`/unfollow`,{...from});
       console.log(res);

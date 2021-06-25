@@ -3,6 +3,7 @@ import { authConstants, userContants } from "../actions/constants"
 const initState = {
     address: [],
     orders: [],
+    following:[],
     orderDetails: {},
     error: null,
     loading: false,
@@ -87,6 +88,30 @@ const initState = {
           ...state,
           placedOrderId: action.payload.order._id,
         };
+        break;
+        case userContants.EDIT_USER_PROFILE_REQUEST:
+      state = {
+        ...state,
+      };
+      break;
+    case userContants.EDIT_USER_PROFILE_SUCCESS:
+      state = {
+        ...state,
+        store: action.payload.updateduserProfile,
+      };
+      break;
+    case userContants.EDIT_USER_PROFILE_FAILURE:
+      state = {
+        ...state,
+        error: action.payload.error,
+      };
+      break;
+      case authConstants.GET_ALL_FOLLOWING_SUCCESS:
+        state = {
+            ...state,
+            following:action.payload.following
+        }
+        
         break;
     }
   
