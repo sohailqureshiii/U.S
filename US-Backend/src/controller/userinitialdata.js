@@ -2,6 +2,8 @@ const Category = require('../models/category');
 const Product = require('../models/product');
 const store = require('../models/store');
 const StoreLocation = require('../models/location')
+const User = require('../models/auth');
+
 
 
 function createCategories(categories, parentId = null) {
@@ -56,3 +58,41 @@ exports.userinitialData = async (req, res) => {
     })
 }
 
+
+exports.userData = async(req,res) =>{
+
+        User.findOne({_id:req.user._id})
+        .exec(async(error, user) => {
+            if (error) return res.status(400).json({ error })
+            if (user) {
+             const { following } = user;
+             const followingProduct = await Product.find({createdBy:{$in:following}})
+             .select('_id name price quantity slug description productPictures category createdBy outOfStock ParCategory')
+            .populate({path: 'category', select: '_id name'})
+            .populate({path: 'ParCategory', select: '_id name'})
+            .populate({path:'createdBy',select: '_id shopName shopLocation'})
+             .exec();
+             const followingStore = await store.find({_id:{$in:following}})
+             .select('shopName')
+             .exec();
+             res.status(200).json({
+                following,
+                followingProduct,
+                followingStore
+
+             })
+        //    const followingProduct = await Product.find({createdBy:{$in:following}})
+        //      .exec(async(error,product)=>{
+        //          if(error) return res.status(400).json({ error })
+        //          if(product){
+        //               res.status(200).json({
+        //                 following,
+        //                 product
+        //             })
+        //          }
+        //      })
+                   
+                } 
+        })
+    
+}

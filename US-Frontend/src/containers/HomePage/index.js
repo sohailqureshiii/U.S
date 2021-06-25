@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { getInitialData, getProductDetailsById } from "../../actions";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import "./style.css";
 import Navigationbar from "../Navbar";
 import Footer from "../../components/Footerr/Footer";
 import Product from "../../components/Product";
-
 
 /**
  * @author
@@ -13,130 +11,129 @@ import Product from "../../components/Product";
  **/
 
 const HomePage = (props) => {
-
   const product = useSelector((state) => state.product);
-  const location = useSelector((state)=>state.location.locations)
+  const location = useSelector((state) => state.location.locations);
   const categoriesList = useSelector((state) => state.category.categories);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterdLocation,setFilterdLocation] = useState("");
-  const [filterdCategory,setFilterdCategory] = useState("");
-
+  const [filterdLocation, setFilterdLocation] = useState("");
+  const [filterdCategory, setFilterdCategory] = useState("");
 
   // const lowtohigh = product.products.sort((a,b)=>a.price-b.price);
-  const high = product.products.sort((a,b)=> b.price - a.price);
+  const high = product.products.sort((a, b) => b.price - a.price);
 
-    const catloc = product.products.filter((product)=> product.ParCategory._id.includes(filterdCategory) && product.createdBy.shopLocation.includes(filterdLocation))
-    // console.log("catloc",catloc);
+  const catloc = product.products.filter(
+    (product) =>
+      product.ParCategory._id.includes(filterdCategory) &&
+      product.createdBy.shopLocation.includes(filterdLocation)
+  );
+  // console.log("catloc",catloc);
 
-
-
-
-
-
-  const renderProduct = () =>{
-    if(searchTerm === "" && filterdCategory === "" && filterdLocation === ""){
+  const renderProduct = () => {
+    if (searchTerm === "" && filterdCategory === "" && filterdLocation === "") {
       return (
         <div style={{ padding: "30px" }}>
-        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
-      { 
-         product.products.map((product,index)=>(
-          <Product product={product} index={index} />
-        ))
-      }
+          <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+            {product.products.map((product, index) => (
+              <Product product={product} index={index} />
+            ))}
+          </div>
         </div>
-        </div>
-      )
+      );
     }
-    if(searchTerm !=="" ){
+    if (searchTerm !== "") {
       return (
         <div style={{ padding: "30px" }}>
-        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
-      { 
-         product.products.filter((product)=>
-         product.name
-                  .toLowerCase()
-                  .split(" ")
-                  .join("")
-                  .includes(searchTerm.toLowerCase().split(" ").join("")) ||
-                product.createdBy.shopName
-                  .toLowerCase()
-                  .split(" ")
-                  .join("")
-                  .includes(searchTerm.toLowerCase().split(" ").join(""))
-         ).map((product,index)=>(
-          <Product product={product} index={index} />
-        ))
-      }
+          <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+            {product.products
+              .filter(
+                (product) =>
+                  product.name
+                    .toLowerCase()
+                    .split(" ")
+                    .join("")
+                    .includes(searchTerm.toLowerCase().split(" ").join("")) ||
+                  product.createdBy.shopName
+                    .toLowerCase()
+                    .split(" ")
+                    .join("")
+                    .includes(searchTerm.toLowerCase().split(" ").join(""))
+              )
+              .map((product, index) => (
+                <Product product={product} index={index} />
+              ))}
+          </div>
         </div>
-        </div>
-      )
+      );
     }
-    if(filterdCategory !=="" && filterdLocation === "" ){
+    if (filterdCategory !== "" && filterdLocation === "") {
       return (
         <div style={{ padding: "30px" }}>
-        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
-      { 
-         product.products.filter((product)=>
-         product.ParCategory._id.includes(filterdCategory)
-         ).map((product,index)=>(
-          <Product product={product} index={index} />
-        ))
-      }
+          <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+            {product.products
+              .filter((product) =>
+                product.ParCategory._id.includes(filterdCategory)
+              )
+              .map((product, index) => (
+                <Product product={product} index={index} />
+              ))}
+          </div>
         </div>
-        </div>
-      )
+      );
     }
-    if(filterdLocation !=="" && filterdCategory === "" ){
+    if (filterdLocation !== "" && filterdCategory === "") {
       return (
         <div style={{ padding: "30px" }}>
-        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
-      { 
-         product.products.filter((product)=>
-         product.createdBy.shopLocation.includes(filterdLocation)
-         ).map((product,index)=>(
-          <Product product={product} index={index} />
-        ))
-      }
+          <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+            {product.products
+              .filter((product) =>
+                product.createdBy.shopLocation.includes(filterdLocation)
+              )
+              .map((product, index) => (
+                <Product product={product} index={index} />
+              ))}
+          </div>
         </div>
-        </div>
-      )
+      );
     }
-    if(filterdLocation !=="" && filterdCategory !== "" ){
+    if (filterdLocation !== "" && filterdCategory !== "") {
       return (
         <div style={{ padding: "30px" }}>
-        <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
-      { 
-         product.products.filter((product)=>
-         product.createdBy.shopLocation.includes(filterdLocation) &&  product.ParCategory._id.includes(filterdCategory)
-         ).map((product,index)=>(
-          <Product product={product} index={index} />
-        ))
-      }
+          <div className="Galleries-covers-ihH Galleries-grid-1Bv Galleries-header-14v">
+            {product.products
+              .filter(
+                (product) =>
+                  product.createdBy.shopLocation.includes(filterdLocation) &&
+                  product.ParCategory._id.includes(filterdCategory)
+              )
+              .map((product, index) => (
+                <Product product={product} index={index} />
+              ))}
+          </div>
         </div>
-        </div>
-      )
+      );
     }
-  }
+  };
 
   return (
     <>
       <Navigationbar />
-      <div style={{paddingTop:'45px'}}>
+      <div style={{ paddingTop: "45px" }}>
         <nav
           className="NavigationBar-subcategoryList-1nX"
           style={{
-           padding:'10px',
+            padding: "10px",
             border: "1px solid #eaeaea",
             boxShadow: "0 2px 4px rgb(25 25 25 / 15%)",
             paddingLeft: "79px",
-            overflow:'auto'
+            overflow: "auto",
           }}
         >
           <ul style={{ display: "contents" }}>
             <li>
               <a className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua">
                 <div className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5">
-                <select className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5"
+                  <select
+                    className="SubCategory-root-mwE SubCategory-active-Sxz NavigationBar-subcategory-2m5"
                     className="SubCategory-label-30F"
                     value={filterdLocation}
                     onChange={(e) => {
@@ -144,7 +141,12 @@ const HomePage = (props) => {
                       setFilterdLocation(selectedLocation);
                     }}
                   >
-                    <option className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua" value="">location</option>
+                    <option
+                      className="router-link-exact-active router-link-active NavigationBar-subcategoryLink-3Ua"
+                      value=""
+                    >
+                      location
+                    </option>
                     {location.map((value) => (
                       <option key={value._id} value={value._id}>
                         {value.name}
@@ -162,7 +164,7 @@ const HomePage = (props) => {
                     value={filterdCategory}
                     onChange={(e) => {
                       const selectedCategory = e.target.value;
-                      setFilterdCategory(selectedCategory)
+                      setFilterdCategory(selectedCategory);
                     }}
                   >
                     <option value="">Category</option>
@@ -186,8 +188,6 @@ const HomePage = (props) => {
                       <path d="M11.407,10.421,8.818,7.832a4.276,4.276,0,1,0-.985.985l2.589,2.589a.7.7,0,0,0,.985-.985ZM2.355,5.352a3,3,0,1,1,3,3,3,3,0,0,1-3-3Z"></path>
                     </svg>
                   </div>
-                  <form className="SearchTypeahead-searchForm-20c">
-                    <label for="search">
                       <input
                         type="search"
                         name="search"
@@ -198,9 +198,9 @@ const HomePage = (props) => {
                         onChange={(e) => {
                           setSearchTerm(e.target.value);
                         }}
+                        style={{outline:'none'}}
                       />
-                    </label>
-                  </form>
+                   
                 </div>
                 <button
                   tabIndex="-1"
@@ -217,8 +217,7 @@ const HomePage = (props) => {
 
         {renderProduct()}
       </div>
-      <Footer/>
-
+      <Footer />
     </>
   );
 };

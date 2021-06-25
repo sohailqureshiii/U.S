@@ -50,12 +50,13 @@ exports.signin = (req, res) => {
 
                 if ( isPassword && user.role === 'user') {
                     const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
-                    const { _id, firstName, lastName, email, role, fullName, username } = user;
+                    const { _id, firstName, lastName, email, role, fullName, username,following } = user;
                     res.status(200).json({
                         token,
                         user: {
                             _id, firstName, lastName, email, role, fullName, username
-                        }
+                        },
+                        following
                     })
                 } else {
                     return res.status(400).json({

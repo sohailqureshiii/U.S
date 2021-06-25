@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom";
 
 const Store = (props) => {
-    const {store} = props
+    const {store,index} = props
     return (
         <>
          <div key={store._id} className="border-for-store">

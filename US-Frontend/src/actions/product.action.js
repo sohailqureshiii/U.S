@@ -6,7 +6,7 @@ export const getProductBySlug = (slug) => {
     return async dispatch => {
         const res = await axios.get(`/products/${slug}`)
         const ress = await axios.post(`/initialData`);
-        const { categories, products,stores } = ress.data;
+        const { products } = ress.data;
         // console.log(res);
         if (res.status === 200) {
             dispatch({
@@ -25,7 +25,7 @@ export const getProductBySlug = (slug) => {
     }
 
 }
-
+    
 
 export const getProductDetailsById = (payload) => {
     return async dispatch => {

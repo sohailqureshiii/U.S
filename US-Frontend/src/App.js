@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getInitialData, isUserLoggedIn } from "./actions";
+import { getInitialData, isUserLoggedIn, userData } from "./actions";
 import Myprofile from "./containers/MyProfile";
 import ProductDetailsPage from "./containers/ProductDetailsPage";
 import CartPage from "./containers/CartPage/index";
@@ -14,7 +14,7 @@ import OrderDetailsPage from "./containers/OrdersPage";
 import OrderPage from "./containers/OrdersPage";
 import ExploreStore from "./containers/ExploreStore";
 import ShopProfile from "./containers/newShopProfile";
-import NewCategory from "./components/NewCategoryUI";
+import Favorite from "./containers/Fav";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +36,12 @@ function App() {
     dispatch(updateCart());
   }, [auth.authenticate]);
 
+  useEffect(() => {
+     if(auth.authenticate){
+       dispatch(userData())
+     }
+  }, [auth.authenticate]);
+
   return (
     <div className="App">
       <Router>
@@ -48,12 +54,12 @@ function App() {
           <Route path="/order_details/:orderId" component={OrderDetailsPage} />
           <Route path="/myprofile" exact component={Myprofile} />
           <Route path="/:storeId/store" exact component={ShopProfile} />
+          <Route path="/favorite" exact component={Favorite} />
           {/* <Route path="/UI" exact component={NewCategory} /> */}
-          {/* <Route
+          <Route
             path="/:productSlug/:productId/p"
             component={ProductDetailsPage}
-          /> */}
-          {/* <Route path="/:slug" component={ProductListPage} /> */}
+          />
         </Switch>
       </Router>
     </div>
